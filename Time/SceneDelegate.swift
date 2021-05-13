@@ -1,8 +1,8 @@
 //
 //  SceneDelegate.swift
-//  Time
+//  InstaPDP1
 //
-//  Created by Muhammadjon Mamarasulov on 5/9/21.
+//  Created by Muhammadjon Mamarasulov on 4/22/21.
 //
 
 import UIKit
@@ -16,7 +16,28 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
+        callSignInController()
         guard let _ = (scene as? UIWindowScene) else { return }
+    }
+    
+    func callHomeController() {
+        let vc = HomeViewController(nibName: "HomeViewController", bundle: nil)
+        let nc = UINavigationController(rootViewController: vc)
+        if self.window == nil {
+            self.window = UIWindow(frame: UIScreen.main.bounds)
+        }
+        self.window?.rootViewController = nc
+        self.window?.makeKeyAndVisible()
+    }
+
+    
+    func callSignInController() {
+        let vc = SignInViewController(nibName: "SignInViewController", bundle: nil)
+        if self.window == nil {
+            self.window = UIWindow(frame: UIScreen.main.bounds)
+        }
+        self.window?.rootViewController = vc
+        self.window?.makeKeyAndVisible()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -45,8 +66,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Called as the scene transitions from the foreground to the background.
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
+
+        // Save changes in the application's managed object context when the application transitions to the background.
+        (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
     }
 
 
 }
+
 
